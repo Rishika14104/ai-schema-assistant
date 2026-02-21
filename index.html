@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AI Schema Assistant</title>
+</head>
+<body>
+<h2>AI MongoDB Schema Generator</h2>
+
+<textarea id="desc" rows="5" cols="50"></textarea><br><br>
+<button onclick="generate()">Generate</button>
+
+<pre id="result"></pre>
+
+<script>
+async function generate() {
+    const desc = document.getElementById("desc").value;
+
+    const response = await fetch("http://localhost:5000/generate-schema", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ description: desc })
+    });
+
+    const data = await response.json();
+    document.getElementById("result").innerText = JSON.stringify(data, null, 2);
+}
+</script>
+
+</body>
+</html>
